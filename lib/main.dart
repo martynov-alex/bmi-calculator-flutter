@@ -15,8 +15,8 @@ class BMICalculator extends StatelessWidget {
           centerTitle: true,
           elevation: 0,
           titleTextStyle: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            //fontWeight: FontWeight.bold,
           ),
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(

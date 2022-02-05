@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'icon_content.dart';
+import 'reusable_card.dart';
 
 const double widgetsIndent = 8.0;
 const double bottomContainerHeight = 80.0;
 const Color activeCardColor = Color(0xff1b5e20);
+const Color inactiveCardColor = Color(0xff003900);
 const Color bottomContainerColor = Color(0xffc9bc1f);
+
+enum Gender { male, female }
 
 class InputPage extends StatefulWidget {
   @override
@@ -12,6 +17,21 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  //Color maleCardColor = inactiveCardColor;
+  //Color femaleCardColor = inactiveCardColor;
+  // void updateColor(Gender selectedGender) {
+  //   if (selectedGender == Gender.male) {
+  //     maleCardColor = activeCardColor;
+  //     femaleCardColor = inactiveCardColor;
+  //   }
+  //   if (selectedGender == Gender.female) {
+  //     femaleCardColor = activeCardColor;
+  //     maleCardColor = inactiveCardColor;
+  //   }
+  // }
+
+  Gender selectedGender;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +45,54 @@ class _InputPageState extends State<InputPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(width: widgetsIndent),
-                Expanded(child: ReusableCard(cardColor: activeCardColor)),
-                Expanded(child: ReusableCard(cardColor: activeCardColor)),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        //updateColor(Gender.male);
+                        //
+                        // maleCardColor == inactiveCardColor
+                        //     ? maleCardColor = activeCardColor
+                        //     : femaleCardColor = inactiveCardColor;
+                        // femaleCardColor = inactiveCardColor;
+                        selectedGender = Gender.male;
+                      });
+                    },
+                    child: ReusableCard(
+                      cardColor: selectedGender == Gender.male
+                          ? activeCardColor
+                          : inactiveCardColor,
+                      cardChild: IconContent(
+                        icon: FontAwesomeIcons.male,
+                        label: 'MALE',
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        //updateColor(Gender.female);
+                        //
+                        // femaleCardColor == inactiveCardColor
+                        //     ? femaleCardColor = activeCardColor
+                        //     : maleCardColor = inactiveCardColor;
+                        // maleCardColor = inactiveCardColor;
+                        selectedGender = Gender.female;
+                      });
+                    },
+                    child: ReusableCard(
+                      cardColor: selectedGender == Gender.female
+                          ? activeCardColor
+                          : inactiveCardColor,
+                      cardChild: IconContent(
+                        icon: FontAwesomeIcons.female,
+                        label: 'FEMALE',
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(width: widgetsIndent),
               ],
             ),
@@ -59,33 +125,6 @@ class _InputPageState extends State<InputPage> {
             height: bottomContainerHeight,
           ),
         ],
-      ),
-    );
-  }
-}
-
-// Чтоб вынести виджет нужно выбрать в Flutter Outline -> Extract Widget...
-// После чего будет автоматически создан новый класс из выбранного виджета
-class ReusableCard extends StatelessWidget {
-  // Чтоб сделать параметр обязательным нужно добавить @required
-  ReusableCard({@required this.cardColor, this.cardChild});
-
-  // final в начале означает, что данный параметр неизменный, после создания
-  // экземпляра каласса уже нельзя будет поменять это свойство, т.е. класс
-  // станет @immutable т.к. он наследуется от StatelessWidget. Есть только один
-  // путь изменить StatelessWidget - уничтожить старый и создать новый
-  final Color cardColor;
-  final Widget cardChild;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: cardChild,
-      margin: EdgeInsets.all(widgetsIndent),
-      padding: EdgeInsets.all(widgetsIndent * 2),
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
