@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:bmi_calculator/constants.dart';
 
 // Чтоб вынести виджет нужно выбрать в Flutter Outline -> Extract Widget...
 // После чего будет автоматически создан новый класс из выбранного виджета
 class ReusableCard extends StatelessWidget {
   // Чтоб сделать параметр обязательным нужно добавить @required
-  ReusableCard({
-    @required this.cardColor,
-    this.cardChild,
-    this.onPress,
-  });
+  ReusableCard({@required this.cardColor, this.cardChild, this.onPress});
 
   // final в начале означает, что данный параметр неизменный, после создания
   // экземпляра каласса уже нельзя будет поменять это свойство, т.е. класс
